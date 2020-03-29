@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+</head>
+
+<body>
+
+    <script>
+        let playerWins = 0;
+        let computerWins = 0;
+        let draws = 0;
+
+        function game() {
+
+            let count = 0;
+            while (count < 5) {
+                const computerSelection = computerPlay();
+                const playerSelection = prompt("Rock,paper or scissors?").toLowerCase();
+                console.log(playRound(playerSelection, computerSelection));
+                count++;
+            }
+            console.log(
+                `Player won ${playerWins} time(s).
+Computer won ${computerWins} time(s).
+There were ${draws} draws.`
+            );
+        }
+
+        function computerPlay() {
+            let randomNumber = Math.floor(Math.random() * 3);
+            return randomNumber === 2 ? "rock" :
+                randomNumber === 1 ? "paper" :
+                    "scissors";
+        }
+
+        function playRound(playerSelection, computerSelection) {
+
+            if ((playerSelection === "paper" && computerSelection === "rock") ||
+                playerSelection === "rock" && computerSelection === "paper") {
+
+                return playerSelection === "paper" ? displayMessage("player", playerSelection, computerSelection) : displayMessage("computer", playerSelection, computerSelection);
+            }
+            else if ((playerSelection === "rock" && computerSelection === "scissors") ||
+                playerSelection === "scissors" && computerSelection === "rock") {
+
+                return playerSelection === "rock" ? displayMessage("player", playerSelection, computerSelection) : displayMessage("computer", playerSelection, computerSelection);
+            }
+            else if ((playerSelection === "scissors" && computerSelection === "paper") ||
+                playerSelection === "paper" && computerSelection === "scissors") {
+
+                return playerSelection === "scissors" ? displayMessage("player", playerSelection, computerSelection) : displayMessage("computer", playerSelection, computerSelection);
+            }
+            else {
+                return displayMessage();
+            }
+        }
+
+        function displayMessage(winner, playerSelection, computerSelection) {
+            if (winner === "player") {
+                playerWins++;
+                return `Player beats Computer! -  ${playerSelection} beats ${computerSelection}!`;
+            }
+            else if (winner === "computer") {
+                computerWins++;
+                return `Computer beats Player! - ${computerSelection} beats ${playerSelection}!`;
+            }
+            else {
+                draws++;
+                return `It's a draw!`;
+            }
+        }
+
+        game();
+
+
+    </script>
+</body>
+
+</html>
