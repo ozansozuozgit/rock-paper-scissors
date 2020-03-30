@@ -4,80 +4,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" type="text/css" href="styles/styles.css">
     <title>Rock Paper Scissors</title>
 </head>
 
 <body>
+    <h1>Welcome to Rock Paper Scissors sexy mode</h1>
+    <div id="container">
+        <h2 id="round-info">Round</h2>
+        <div id="score-container">
+            <div class="info" id="player-score">
+                <span class="score-name">Ozan</span>
+                <span class="score-display">0</span>
+            </div>
+            <div class="info" id="draw">
+                <span class="score-name">Draw</span>
+                <span class="score-display">0</span>
+            </div>
+            <div class="info" id="computer-score">
+                <span class="score-name">Computer</span>
+                <span class="score-display">0</span>
+            </div>
+        </div>
+        <div id="game-screen">
+            <div id="player-card">
+                <!-- Append card when chosen -->
+            </div>
+            <span id="winner-info"></span>
+            <div id="computer-card">
+                <!-- Append card when chosen -->
+            </div>
+        </div>
 
-    <script>
-        let playerWins = 0;
-        let computerWins = 0;
-        let draws = 0;
+        <div id="selection">
+            <div id="rock" class="card">
+                <img src="images/rock.png" alt="the-rock">
+                <span>Rock</span>
+            </div>
+            <div id="paper" class="card">
+                <img src="images/paper.jpg" alt="paper">
+                <span>Paper</span>
+            </div>
+            <div id="scissors" class="card">
+                <img src="images/scissors.jpg" alt="paper">
+                <span>Scissors</span>
+            </div>
+        </div>
+    </div>
 
-        function game() {
+    <h2 id="announcement"></h2>
 
-            let count = 0;
-            while (count < 5) {
-                const computerSelection = computerPlay();
-                const playerSelection = prompt("Rock,paper or scissors?").toLowerCase();
-                console.log(playRound(playerSelection, computerSelection));
-                count++;
-            }
-            console.log(
-                `Player won ${playerWins} time(s).
-Computer won ${computerWins} time(s).
-There were ${draws} draws.`
-            );
-        }
+    <script src="scripts/app.js"></script>
 
-        function computerPlay() {
-            let randomNumber = Math.floor(Math.random() * 3);
-            return randomNumber === 2 ? "rock" :
-                randomNumber === 1 ? "paper" :
-                    "scissors";
-        }
-
-        function playRound(playerSelection, computerSelection) {
-
-            if ((playerSelection === "paper" && computerSelection === "rock") ||
-                playerSelection === "rock" && computerSelection === "paper") {
-
-                return playerSelection === "paper" ? displayMessage("player", playerSelection, computerSelection) : displayMessage("computer", playerSelection, computerSelection);
-            }
-            else if ((playerSelection === "rock" && computerSelection === "scissors") ||
-                playerSelection === "scissors" && computerSelection === "rock") {
-
-                return playerSelection === "rock" ? displayMessage("player", playerSelection, computerSelection) : displayMessage("computer", playerSelection, computerSelection);
-            }
-            else if ((playerSelection === "scissors" && computerSelection === "paper") ||
-                playerSelection === "paper" && computerSelection === "scissors") {
-
-                return playerSelection === "scissors" ? displayMessage("player", playerSelection, computerSelection) : displayMessage("computer", playerSelection, computerSelection);
-            }
-            else {
-                return displayMessage();
-            }
-        }
-
-        function displayMessage(winner, playerSelection, computerSelection) {
-            if (winner === "player") {
-                playerWins++;
-                return `Player beats Computer! -  ${playerSelection} beats ${computerSelection}!`;
-            }
-            else if (winner === "computer") {
-                computerWins++;
-                return `Computer beats Player! - ${computerSelection} beats ${playerSelection}!`;
-            }
-            else {
-                draws++;
-                return `It's a draw!`;
-            }
-        }
-
-        game();
-
-
-    </script>
 </body>
 
 </html>

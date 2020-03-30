@@ -1,0 +1,72 @@
+body {
+  color: white;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    112deg,
+    rgba(0, 0, 0, 1) 5%,
+    rgba(107, 31, 31, 1) 49%,
+    rgba(0, 0, 0, 1) 95%
+  );
+}
+h1 {
+  text-align: center;
+}
+span {
+  display: block;
+}
+#score-container {
+  display: flex;
+  justify-content: center;
+  width: 1024px;
+  margin: auto;
+  text-align: center;
+  font-size: 25px;
+}
+
+.score-display {
+  margin-top: 20px;
+  font-size: 75px;
+}
+
+.info {
+  height: 200px;
+  width: 200px;
+  border: 1px solid white;
+  margin-right: 40px;
+}
+
+#round-info {
+  text-align: center;
+}
+
+#game-screen {
+  margin: 40px auto;
+  display: flex;
+  width: 1024px;
+  border: 1px solid white;
+}
+#selection {
+  display: flex;
+  justify-content: center;
+}
+.card {
+  margin: 20px 40px;
+  height: 250px;
+  width: 250px;
+  border: 1px solid white;
+}
+
+.card:hover {
+  cursor: pointer;
+}
+
+img {
+  object-fit: cover;
+  width: 250px;
+  height: 250px;
+}
+
+.card span {
+  font-size: 25px;
+  text-align: center;
+}
