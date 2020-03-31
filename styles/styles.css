@@ -44,7 +44,6 @@ span {
   margin: 40px auto;
   display: flex;
   justify-content: space-between;
-  width: 1024px;
 }
 #selection {
   display: flex;
@@ -58,7 +57,6 @@ span {
   font-size: 25px;
   text-align: center;
   transition: all 0.3s;
-  /* border: 1px solid white; */
 }
 
 .card:hover {
@@ -105,6 +103,9 @@ img {
 }
 
 @media (max-width: 1300px) {
+  body {
+    width: 700px;
+  }
   .info {
     height: 150px;
     width: 150px;
@@ -121,7 +122,6 @@ img {
 
   .card,
   .game-card {
-    margin: 20px 40px;
     height: 130px;
     width: 200px;
   }

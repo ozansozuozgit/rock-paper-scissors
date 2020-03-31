@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-nested-ternary */
 const selectionContainer = document.querySelector("#selection");
 const selections = document.querySelectorAll(".card");
 const playerScore = document.querySelector("#player-score .score-display");
