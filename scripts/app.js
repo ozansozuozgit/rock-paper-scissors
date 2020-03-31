@@ -1,29 +1,85 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-nested-ternary */
+const selectionContainer = document.querySelector("#selection");
 const selections = document.querySelectorAll(".card");
-console.log(selections);
-selections.forEach(selection =>
-  selection.addEventListener("click", e => {
-    console.log(e.target);
-    console.log(selection.id);
-  })
+const playerScore = document.querySelector("#player-score .score-display");
+const computerScore = document.querySelector("#computer-score .score-display");
+const drawScore = document.querySelector("#draw .score-display");
+const winnerInfo = document.querySelector("#winner-info");
+const roundInfo = document.querySelector("#round-info");
+const btnNextRound = document.querySelector("#btn-next-round");
+const gameScreen = document.querySelector("#game-screen");
+const playerSelectionImage = document.querySelector("#player-selection-image");
+const btnRestart = document.querySelector("#btn-restart");
+const computerSelectionImage = document.querySelector(
+  "#computer-selection-image"
 );
+const results = document.querySelector("#results");
 
 let playerWins = 0;
 let computerWins = 0;
 let draws = 0;
 let rounds = 0;
+let message = "";
+let playerWonRound = false;
+let computerWonRound = false;
 
-function displayMessage(winner, playerSelection, computerSelection) {
-  if (winner === "player") {
-    playerWins += 1;
-    return `Player beats Computer! -  ${playerSelection} beats ${computerSelection}!`;
+function displayResults() {
+  let winner;
+  if (playerWins > computerWins) {
+    winner = "Player";
+  } else if (computerWins > playerWins) {
+    winner = "Computer";
+  } else {
+    winner = "Nobody";
   }
-  if (winner === "computer") {
-    computerWins += 1;
-    return `Computer beats Player! - ${computerSelection} beats ${playerSelection}!`;
+
+  results.textContent = `The winner is ${winner}!!! Player won ${playerWins} time(s).
+    Computer won ${computerWins} time(s).
+    There were ${draws} draws.`;
+
+  results.style.display = "";
+  btnRestart.style.display = "";
+}
+
+function displayChosenCards(player, computer) {
+  console.log(player);
+  // If span the text is clicked, find the image
+  if (player.tagName === "SPAN") {
+    playerSelectionImage.src = player.previousElementSibling.src;
+  } else if (player.tagName === "IMG") {
+    playerSelectionImage.src = player.src;
+  } else {
+    // If container div is clicked, find the image
+    playerSelectionImage.src = player.children[0].src;
   }
-  draws += 1;
-  return `It's a draw!`;
+
+  if (computer === "rock") {
+    computerSelectionImage.src = "images/rock.png";
+  }
+  if (computer === "paper") {
+    computerSelectionImage.src = "images/paper.jpg";
+  }
+  if (computer === "scissors") {
+    computerSelectionImage.src = "images/scissors.jpg";
+  }
+  gameScreen.style.display = "";
+  selectionContainer.style.display = "none";
+  btnNextRound.style.display = "";
+}
+
+function displayMessage(playerSelection, computerSelection) {
+  roundInfo.textContent = `Round ${rounds}`;
+  if (playerWonRound) {
+    playerScore.textContent = playerWins;
+    winnerInfo.textContent = `Player beats Computer! -  ${playerSelection} beats ${computerSelection}!`;
+  } else if (computerWonRound) {
+    computerScore.textContent = computerWins;
+    winnerInfo.textContent = `Computer beats Player! - ${computerSelection} beats ${playerSelection}!`;
+  } else {
+    drawScore.textContent = draws;
+    winnerInfo.textContent = `It's a draw!`;
+  }
 }
 
 function computerPlay() {
@@ -36,41 +92,89 @@ function computerPlay() {
 }
 
 function playRound(playerSelection, computerSelection) {
+  playerWonRound = false;
+  computerWonRound = false;
   if (
     (playerSelection === "paper" && computerSelection === "rock") ||
     (playerSelection === "rock" && computerSelection === "paper")
   ) {
-    return playerSelection === "paper"
-      ? displayMessage("player", playerSelection, computerSelection)
-      : displayMessage("computer", playerSelection, computerSelection);
+    // In this condition, paper always beats rock, if player chose paper, they win
+    if (playerSelection === "paper") {
+      playerWonRound = true;
+    } else {
+      computerWonRound = true;
+    }
   }
   if (
     (playerSelection === "rock" && computerSelection === "scissors") ||
     (playerSelection === "scissors" && computerSelection === "rock")
   ) {
-    return playerSelection === "rock"
-      ? displayMessage("player", playerSelection, computerSelection)
-      : displayMessage("computer", playerSelection, computerSelection);
+    if (playerSelection === "rock") {
+      playerWonRound = true;
+    } else {
+      computerWonRound = true;
+    }
   }
+
   if (
     (playerSelection === "scissors" && computerSelection === "paper") ||
     (playerSelection === "paper" && computerSelection === "scissors")
   ) {
-    return playerSelection === "scissors"
-      ? displayMessage("player", playerSelection, computerSelection)
-      : displayMessage("computer", playerSelection, computerSelection);
+    if (playerSelection === "scissors") {
+      playerWonRound = true;
+    } else {
+      computerWonRound = true;
+    }
   }
-  return displayMessage();
+  if (playerWonRound === true) {
+    message = `${playerSelection} beats ${computerSelection}!`;
+    playerWins += 1;
+  } else if (computerWonRound === true) {
+    message = `${computerSelection} beats ${playerSelection}!`;
+    computerWins += 1;
+  } else {
+    message = "It's a draw!";
+    draws += 1;
+  }
+  rounds += 1;
+  console.log(message);
 }
 
-function game() {
-  const computerSelection = computerPlay();
+selections.forEach(selection =>
+  selection.addEventListener("click", e => {
+    console.log(e);
+    const computerSelection = computerPlay();
+    playRound(selection.id, computerSelection);
+    displayChosenCards(e.target, computerSelection);
+    displayMessage(selection.id, computerSelection);
+    // Remove unnessary containers and display results
+    if (rounds === 5) {
+      selectionContainer.style.display = "none";
+      gameScreen.style.display = "none";
+      btnNextRound.style.display = "none";
+      displayResults();
+    }
+  })
+);
 
-  console.log(
-    `Player won ${playerWins} time(s).
-  Computer won ${computerWins} time(s).
-  There were ${draws} draws.`
-  );
-}
+btnNextRound.addEventListener("click", () => {
+  selectionContainer.style.display = "";
+  btnNextRound.style.display = "none";
+  gameScreen.style.display = "none";
+});
 
-//game();
+//Restart Game
+btnRestart.addEventListener("click", () => {
+  playerWins = 0;
+  computerWins = 0;
+  draws = 0;
+  rounds = 0;
+  playerScore.textContent = playerWins;
+  computerScore.textContent = computerWins;
+  drawScore.textContent = draws;
+
+  roundInfo.textContent = "Round 0";
+  results.style.display = "none";
+  selectionContainer.style.display = "";
+  btnRestart.style.display = "none";
+});

@@ -1,12 +1,8 @@
 body {
   color: white;
   background: rgb(0, 0, 0);
-  background: linear-gradient(
-    112deg,
-    rgba(0, 0, 0, 1) 5%,
-    rgba(107, 31, 31, 1) 49%,
-    rgba(0, 0, 0, 1) 95%
-  );
+  width: 1024px;
+  margin: auto;
 }
 h1 {
   text-align: center;
@@ -14,24 +10,29 @@ h1 {
 span {
   display: block;
 }
+
 #score-container {
   display: flex;
   justify-content: center;
-  width: 1024px;
-  margin: auto;
+  margin: 40px auto 0 40px;
   text-align: center;
   font-size: 25px;
 }
 
+.score-name {
+  margin-top: 20px;
+}
+
 .score-display {
   margin-top: 20px;
-  font-size: 75px;
+  font-size: 85px;
 }
 
 .info {
   height: 200px;
   width: 200px;
   border: 1px solid white;
+  border-radius: 100px;
   margin-right: 40px;
 }
 
@@ -42,18 +43,21 @@ span {
 #game-screen {
   margin: 40px auto;
   display: flex;
+  justify-content: space-between;
   width: 1024px;
-  border: 1px solid white;
 }
 #selection {
   display: flex;
   justify-content: center;
+  margin-top: 100px;
 }
 .card {
   margin: 20px 40px;
   height: 250px;
   width: 250px;
-  border: 1px solid white;
+  font-size: 25px;
+  text-align: center;
+  /* border: 1px solid white; */
 }
 
 .card:hover {
@@ -64,9 +68,28 @@ img {
   object-fit: cover;
   width: 250px;
   height: 250px;
+  border-radius: 15px;
 }
 
-.card span {
+#winner-info {
   font-size: 25px;
+  margin: auto;
+}
+
+#btn-next-round {
+  display: block;
+  margin: auto;
+  height: 50px;
+  width: 100px;
+}
+
+#results {
+  font-size: 40px;
   text-align: center;
+}
+
+#btn-restart {
+  display: block;
+  margin: 80px auto;
+  font-size: 40px;
 }

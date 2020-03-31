@@ -12,7 +12,7 @@
 <body>
     <h1>Welcome to Rock Paper Scissors sexy mode</h1>
     <div id="container">
-        <h2 id="round-info">Round</h2>
+        <h2 id="round-info">Round 0</h2>
         <div id="score-container">
             <div class="info" id="player-score">
                 <span class="score-name">Ozan</span>
@@ -27,15 +27,15 @@
                 <span class="score-display">0</span>
             </div>
         </div>
-        <div id="game-screen">
-            <div id="player-card">
-                <!-- Append card when chosen -->
-            </div>
-            <span id="winner-info"></span>
-            <div id="computer-card">
-                <!-- Append card when chosen -->
-            </div>
+        <div id="game-screen" style="display: none;">
+            <img id="player-selection-image" src="" alt="">
+            <span id="winner-info">
+
+            </span>
+            <img id="computer-selection-image" src="" alt="">
         </div>
+
+        <button id="btn-next-round" style="display: none;">Play next round</button>
 
         <div id="selection">
             <div id="rock" class="card">
@@ -53,7 +53,8 @@
         </div>
     </div>
 
-    <h2 id="announcement"></h2>
+    <h2 id="results"></h2>
+    <button id="btn-restart" style="display: none;">Play Again?</button>
 
     <script src="scripts/app.js"></script>
 
