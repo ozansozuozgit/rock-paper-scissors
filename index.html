@@ -10,9 +10,9 @@
 </head>
 
 <body>
-    <h1>Welcome to Rock Paper Scissors sexy mode</h1>
+    <h1>Welcome to Rock Paper Scissors - Stop Whining!</h1>
     <div id="container">
-        <h2 id="round-info">Round 0</h2>
+        <h2 id="round-info">Rock,Paper or Scissors?</h2>
         <div id="score-container">
             <div class="info" id="player-score">
                 <span class="score-name">Ozan</span>
@@ -28,11 +28,11 @@
             </div>
         </div>
         <div id="game-screen" style="display: none;">
-            <img id="player-selection-image" src="" alt="">
+            <img class="game-card" id="player-selection-image" src="" alt="">
             <span id="winner-info">
 
             </span>
-            <img id="computer-selection-image" src="" alt="">
+            <img class="game-card" id="computer-selection-image" src="" alt="">
         </div>
 
         <button id="btn-next-round" style="display: none;">Play next round</button>
@@ -56,8 +56,12 @@
     <h2 id="results"></h2>
     <button id="btn-restart" style="display: none;">Play Again?</button>
 
-    <script src="scripts/app.js"></script>
+    <audio id="sound-1" src="sounds/it-doesnt-matter.mp3"></audio>
+    <audio id="sound-2" src="sounds/stop-whining-sound.mp3"></audio>
+    <audio id="sound-3" src="sounds/game-over-sound.mp3"></audio>
+    <audio id="sound-4" src="sounds/draw-sound.mp3"></audio>
 
+    <script src="scripts/app.js"></script>
 </body>
 
 </html>

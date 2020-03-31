@@ -20,12 +20,18 @@ let playerWins = 0;
 let computerWins = 0;
 let draws = 0;
 let rounds = 0;
-let message = "";
 let playerWonRound = false;
 let computerWonRound = false;
 
+function playsound(sound) {
+  const audio = document.querySelector(`#sound-${sound}`);
+  audio.currenTime = 0;
+  audio.play();
+}
+
 function displayResults() {
   let winner;
+  playsound(3);
   if (playerWins > computerWins) {
     winner = "Player";
   } else if (computerWins > playerWins) {
@@ -43,7 +49,6 @@ function displayResults() {
 }
 
 function displayChosenCards(player, computer) {
-  console.log(player);
   // If span the text is clicked, find the image
   if (player.tagName === "SPAN") {
     playerSelectionImage.src = player.previousElementSibling.src;
@@ -72,7 +77,7 @@ function displayMessage(playerSelection, computerSelection) {
   roundInfo.textContent = `Round ${rounds}`;
   if (playerWonRound) {
     playerScore.textContent = playerWins;
-    winnerInfo.textContent = `Player beats Computer! -  ${playerSelection} beats ${computerSelection}!`;
+    winnerInfo.textContent = `Player beats Computer! - ${playerSelection} beats ${computerSelection}!`;
   } else if (computerWonRound) {
     computerScore.textContent = computerWins;
     winnerInfo.textContent = `Computer beats Player! - ${computerSelection} beats ${playerSelection}!`;
@@ -127,17 +132,16 @@ function playRound(playerSelection, computerSelection) {
     }
   }
   if (playerWonRound === true) {
-    message = `${playerSelection} beats ${computerSelection}!`;
+    playsound(2);
     playerWins += 1;
   } else if (computerWonRound === true) {
-    message = `${computerSelection} beats ${playerSelection}!`;
+    playsound(1);
     computerWins += 1;
   } else {
-    message = "It's a draw!";
+    playsound(4);
     draws += 1;
   }
   rounds += 1;
-  console.log(message);
 }
 
 selections.forEach(selection =>
@@ -147,8 +151,9 @@ selections.forEach(selection =>
     playRound(selection.id, computerSelection);
     displayChosenCards(e.target, computerSelection);
     displayMessage(selection.id, computerSelection);
+
     // Remove unnessary containers and display results
-    if (rounds === 5) {
+    if (rounds >= 5) {
       selectionContainer.style.display = "none";
       gameScreen.style.display = "none";
       btnNextRound.style.display = "none";
@@ -163,7 +168,7 @@ btnNextRound.addEventListener("click", () => {
   gameScreen.style.display = "none";
 });
 
-//Restart Game
+// Restart Game
 btnRestart.addEventListener("click", () => {
   playerWins = 0;
   computerWins = 0;
@@ -173,7 +178,7 @@ btnRestart.addEventListener("click", () => {
   computerScore.textContent = computerWins;
   drawScore.textContent = draws;
 
-  roundInfo.textContent = "Round 0";
+  roundInfo.textContent = "Rock,Paper or Scissors?";
   results.style.display = "none";
   selectionContainer.style.display = "";
   btnRestart.style.display = "none";
